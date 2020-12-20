@@ -1,4 +1,4 @@
-The CFMC Stands for CurseForge Minecraft Modpack Installer, and is a blueprint-modpack installer.
+The CFMA Stands for CurseForge Modpack Architect, and is a blueprint-modpack installer.
 
 # Installation
 
