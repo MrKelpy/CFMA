@@ -36,6 +36,14 @@ To acquire the necessary resources to create a blueprint, you need to:
 }
 ```
 You may add as many mods as you want inside the JSON.
+Example:
+
+```python
+{
+  "BigReactors-0.4.3A.jar":"2282591",
+  "ironchest-1.16.4-11.2.10.jar1":"3105315"
+}
+```
 
 # Using the CFMC
 
