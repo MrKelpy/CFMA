@@ -32,7 +32,7 @@ To acquire the necessary resources to create a blueprint, you need to:
   "CurseForge Modname":"CurseForge ModID",
   "CurseForge Modname1":"CurseForge ModID1",
   "CurseForge Modname2":"CurseForge ModID2"
-  (...)
+  //(...)
 }
 ```
 You may add as many mods as you want inside the JSON.
