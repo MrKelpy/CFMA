@@ -1,5 +1,11 @@
 The CFMC Stands for CurseForge Minecraft Modpack Installer, and is a blueprint-modpack installer.
 
+# Installation
+
+```bash
+Download the executable available in the repository, or the source code.
+```
+
 # Blueprints
 
 Blueprints are JSON files formatted specially for the program to understand. They must be placed inside the mods folder, and incase one isn't located there, it'll be created.
