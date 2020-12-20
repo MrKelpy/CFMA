@@ -29,8 +29,8 @@ To acquire the necessary resources to create a blueprint, you need to:
 ## Blueprint Format
 ```json
 {
-  "CurseForge Modname":"CurseForge ModID"
-  "CurseForge Modname1":"CurseForge ModID1"
+  "CurseForge Modname":"CurseForge ModID",
+  "CurseForge Modname1":"CurseForge ModID1",
   "CurseForge Modname2":"CurseForge ModID2"
   (...)
 }
