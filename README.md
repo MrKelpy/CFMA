@@ -27,12 +27,12 @@ To acquire the necessary resources to create a blueprint, you need to:
 4. (OPTIONAL) To use the blueprint, move it your mods folder, located at C:\Users\USER\AppData\Roaming\.minecraft\mods
 
 ## Blueprint Format
-```json
+```python
 {
   "CurseForge Modname":"CurseForge ModID",
   "CurseForge Modname1":"CurseForge ModID1",
   "CurseForge Modname2":"CurseForge ModID2"
-  //(...)
+  (...)
 }
 ```
 You may add as many mods as you want inside the JSON.
