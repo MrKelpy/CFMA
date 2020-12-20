@@ -34,8 +34,9 @@ def update_output(main, text):
     # Updates the output view
 
     now = datetime.now()
-
+    main.output.config(state="normal")
     main.output.insert('end', f"[{now.hour}:{now.minute}] {text}\n")
+    main.output.config(state="disabled")
     main.output.yview('end')
 
 
@@ -143,7 +144,7 @@ def on_install_click_wrapper(main):
     if installed_count == 0:
         update_output(main, f'Error: Blueprint has no valid mods')
         update_output(main, f'To fill in mods inside the blueprint, edit the JSON file in the with the format CFModname:CFID')
-        update_output(main, f'Check out the github page at https://github.com/mrkelpy/CFMC for a more detailed tutorial.')
+        update_output(main, f'Check out the github page at https://github.com/mrkelpy/CFMA for a more detailed tutorial.')
 
     # Shows the install button again
     time.sleep(1.5)
