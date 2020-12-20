@@ -24,10 +24,10 @@ class Installer:
         # build ui
         self.mainwindow = ttk.Frame(master)
         self.label_2 = ttk.Label(self.mainwindow)
-        self.label_2.config(compound='top', font='{Sans} 20 {bold}', takefocus=True, text='CFMC Modpack Installer')
+        self.label_2.config(compound='top', font='{Sans} 20 {bold}', takefocus=True, text='CF Modpack Architect')
         self.label_2.place(anchor='center', relx='0.5', rely='0.08', x='0', y='0')
         self.install = ttk.Button(self.mainwindow)
-        self.install.config(takefocus=False, text='Install Stuff')
+        self.install.config(takefocus=False, text='Install Mods')
         self.install.place(anchor='center', relwidth='.5', relx='.5', rely='.9', x='0', y='0')
         self.install.configure(command=self.on_install_click)
         self.output = tk.Text(self.mainwindow)
@@ -36,6 +36,7 @@ class Installer:
         self.output.config(width='50', wrap='char')
         _text_ = ""
         self.output.insert('0.0', _text_)
+        self.output.config(state='disabled')
         self.output.place(anchor='center', relheight='.7', relwidth='.8', relx='.5', rely='.5', x='0', y='0')
         self.mainwindow.config(height='400', takefocus=False, width='500')
         self.mainwindow.pack(side='top')
@@ -50,7 +51,7 @@ class Installer:
 
 if __name__ == '__main__':
     root = tk.Tk()
-    root.title("CFMC Modpack Installer")
+    root.title("CFMA")
     app = Installer(root)
     app.run()
 
