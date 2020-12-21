@@ -67,6 +67,13 @@ def archive_mods(main):
 
     del _mods
 
+    # Deletes any wrongly made backups
+    if os.path.isdir(zipbuild):
+        shutil.rmtree(zipbuild)
+
+    if os.path.isfile(os.path.join(modbackups, 'ZipBuild.zip')):
+        os.remove(os.path.join(modbackups, 'ZipBuild.zip'))
+
     # Creates a build directory and makes the archive out of it, renames it to the correct name
     os.makedirs(zipbuild, exist_ok=True)
     update_output(main, f"Building archive")
@@ -96,7 +103,7 @@ def on_install_click_wrapper(main):
         main.wait.place(anchor='center', relx='.5', rely='.9', x='0', y='0')
 
         # Closes all minecraft related windows so the program can use the .minecraft folder.
-        mc_windows = pygetwindow.getWindowsWithTitle("Minecraft")
+        mc_windows = pygetwindow.getWindowsWithTitle("Minecraft 1.")
 
         if mc_windows is not None:
 
@@ -154,9 +161,9 @@ def on_install_click_wrapper(main):
 
     except Exception as err:
 
-        update_output(main, f'[ERROR] {err}'
-    
-    # Shows the install button again
+        update_output(main, f'[ERROR] {err}')
+        # Shows the install button again
+
     time.sleep(1.5)
     main.wait.place_forget()
     main.install.place(anchor='center', relwidth='.5', relx='.5', rely='.9', x='0', y='0')
