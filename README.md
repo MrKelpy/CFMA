@@ -1,5 +1,8 @@
 The CFMA Stands for CurseForge Modpack Architect, and is a blueprint-modpack installer.
 
+## DISCLAIMER
+This software is not associated in any way to the CurseForge authors or to the website itself. The only instance where CurseForge is used is to download the Minecraft Modifications that are stored within.
+
 # Installation
 
 ```bash
