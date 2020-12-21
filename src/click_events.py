@@ -154,9 +154,9 @@ def on_install_click_wrapper(main):
 
     except Exception as err:
 
-        update_output(main, f'[ERROR] {err}')
-        # Shows the install button again
-
+        update_output(main, f'[ERROR] {err}'
+    
+    # Shows the install button again
     time.sleep(1.5)
     main.wait.place_forget()
     main.install.place(anchor='center', relwidth='.5', relx='.5', rely='.9', x='0', y='0')
