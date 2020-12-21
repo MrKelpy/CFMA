@@ -85,67 +85,78 @@ def archive_mods(main):
 
 
 def on_install_click_wrapper(main):
+    try:
+        # Clears the output
+        main.output.config(state="normal")
+        main.output.delete(0.0, "end")
+        main.output.config(state="disabled")
 
-    # Clears the output
-    main.output.delete(0.0, "end")
+        # Hides the install button
+        main.install.place_forget()
+        main.wait.place(anchor='center', relx='.5', rely='.9', x='0', y='0')
 
-    # Hides the install button
-    main.install.place_forget()
+        # Closes all minecraft related windows so the program can use the .minecraft folder.
+        mc_windows = pygetwindow.getWindowsWithTitle("Minecraft")
 
-    # Closes all minecraft related windows so the program can use the .minecraft folder.
-    mc_windows = pygetwindow.getWindowsWithTitle("Minecraft")
+        if mc_windows is not None:
 
-    if mc_windows is not None:
+            for window in mc_windows:
+                update_output(main, f'Closing MC Window "{window.title}"')
+                window.close()
 
-        for window in mc_windows:
-            update_output(main, f'Closing MC Window "{window.title}"')
-            window.close()
+        # Archives the mods in the mods folder
+        archive_mods(main)
 
-    # Archives the mods in the mods folder
-    archive_mods(main)
+        update_output(main, f"Loading blueprint")
+        # Creates the blueprint.json file if it doesn't exist
+        if not os.path.isfile(os.path.join(mods, "blueprint.json")):
 
-    update_output(main, f"Loading blueprint")
-    # Creates the blueprint.json file if it doesn't exist
-    if not os.path.isfile(os.path.join(mods, "blueprint.json")):
+            with open(os.path.join(mods, "blueprint.json"), 'w+') as bpcreator:
 
-        with open(os.path.join(mods, "blueprint.json"), 'w+') as bpcreator:
+                bpcreator.write('{}')
 
-            bpcreator.write('{}')
+        installed_count = 0
 
-    installed_count = 0
+        # Installs the mods listed in the blueprint
+        with open(os.path.join(mods, "blueprint.json"), 'r') as blueprint:
 
-    # Installs the mods listed in the blueprint
-    with open(os.path.join(mods, "blueprint.json"), 'r') as blueprint:
+            # Reads the blueprint and requests the file for each line
+            blueprint_data = json.load(blueprint)
 
-        # Reads the blueprint and requests the file for each line
-        blueprint_data = json.load(blueprint)
+            for modname in blueprint_data:
 
-        for modname in blueprint_data:
+                update_output(main, f'Attempting "{modname}" installation')
 
-            update_output(main, f'Attempting "{modname}" installation')
+                # Parses out the information for each mod and sends the request for the file download
+                modid = wrap(blueprint_data[modname], 4)
 
-            # Parses out the information for each mod and sends the request for the file download
-            modid = wrap(blueprint_data[modname], 4)
+                data = requests.get(f"https://media.forgecdn.net/files/{modid[0]}/{modid[1]}/{modname}")
+                modpath = os.path.join(mods, modname)
 
-            data = requests.get(f"https://media.forgecdn.net/files/{modid[0]}/{modid[1]}/{modname}")
-            modpath = os.path.join(mods, modname)
+                # Checks if response is authorized
+                if data.status_code != 200:
 
-            # Checks if response is authorized
-            if data.status_code != 200:
-                continue
+                    update_output(main, f'Could not install "{modname}" - Bad code ({data.status_code})')
+                    update_output(main, f'Check the params for the mod in the blueprint and try again!')
+                    continue
 
-            # Puts the mod into the mods folder
-            with open(modpath, 'wb+') as mod:
+                # Puts the mod into the mods folder
+                with open(modpath, 'wb+') as mod:
 
-                mod.write(data.content)
-                update_output(main, f'Installed "{modname}" into mods folder at "{mods}"')
-                installed_count += 1
+                    mod.write(data.content)
+                    update_output(main, f'Installed "{modname}" into mods folder at "{mods}"')
+                    installed_count += 1
 
-    if installed_count == 0:
-        update_output(main, f'Error: Blueprint has no valid mods')
-        update_output(main, f'To fill in mods inside the blueprint, edit the JSON file in the with the format CFModname:CFID')
-        update_output(main, f'Check out the github page at https://github.com/mrkelpy/CFMA for a more detailed tutorial.')
+        if installed_count == 0:
+            update_output(main, f'Error: Blueprint has no valid mods')
+            update_output(main, f'To fill in mods inside the blueprint, edit the JSON file in the with the format CFModname:CFID')
+            update_output(main, f'Check out the github page at https://github.com/mrkelpy/CFMA for a more detailed tutorial.')
 
-    # Shows the install button again
+    except Exception as err:
+
+        update_output(main, f'[ERROR] {err}')
+        # Shows the install button again
+
     time.sleep(1.5)
+    main.wait.place_forget()
     main.install.place(anchor='center', relwidth='.5', relx='.5', rely='.9', x='0', y='0')
