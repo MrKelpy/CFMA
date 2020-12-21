@@ -57,4 +57,4 @@ Example:
 # Using the CFMC
 
 Place your blueprint inside the mods folder, this is the blueprint the program will read.
-Run the CFMC.exe file / main.py. Your mods will then be installed, if they're valid, and any pre-existant mods will be backed up in a folder called Mod_Backups.
+Run the CFMA.exe file / main.py. Your mods will then be installed, if they're valid, and any pre-existant mods will be backed up in a folder called Mod_Backups.
