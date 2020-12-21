@@ -58,3 +58,7 @@ Example:
 
 Place your blueprint inside the mods folder, this is the blueprint the program will read.
 Run the CFMA.exe file / main.py. Your mods will then be installed, if they're valid, and any pre-existant mods will be backed up in a folder called Mod_Backups.
+
+# Known Glitches
+- Spaces interfere with the downloading of the mods; To be replaced with "+"'s
+- ID 0's are not counted as characters in the actual links; To be fixed - Remove 0's
