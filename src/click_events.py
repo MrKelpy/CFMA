@@ -40,6 +40,19 @@ def update_output(main, text):
     main.output.yview('end')
 
 
+def format_correction(modname, modid):
+    # Correctly formats both the modname and the modID for the request
+    # Modname formatting
+    modname = modname.split()
+    modname = '+'.join(modname)  # Adds a + in the place of a space, in the modname
+
+    # modID formatting
+    modid_1 = int(modid[1])  # Formats modid[1] into the correct integer
+    modid = (modid[0], str(modid_1))
+
+    return modname, modid
+
+
 def archive_mods(main):
 
     update_output(main, 'Finding possible mods for archiving...')
@@ -137,6 +150,8 @@ def on_install_click_wrapper(main):
                 # Parses out the information for each mod and sends the request for the file download
                 modid = wrap(blueprint_data[modname], 4)
 
+                modname, modid = format_correction(modname, modid)
+
                 data = requests.get(f"https://media.forgecdn.net/files/{modid[0]}/{modid[1]}/{modname}")
                 modpath = os.path.join(mods, modname)
 
@@ -165,5 +180,6 @@ def on_install_click_wrapper(main):
         # Shows the install button again
 
     time.sleep(1.5)
+    update_output(main, 'Action finished.')
     main.wait.place_forget()
     main.install.place(anchor='center', relwidth='.5', relx='.5', rely='.9', x='0', y='0')
