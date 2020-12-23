@@ -54,6 +54,14 @@ Example:
 }
 ```
 
+## Custom Blueprint Mods
+```python
+{
+  "custom_SOMEMOD.jar": "https://direct-download-link-to-the-mod"
+}
+```
+For custom mods, the prefix "custom_" is required.
+
 # Using the CFMA
 
 Place your blueprint inside the mods folder, this is the blueprint the program will read.
