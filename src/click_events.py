@@ -189,8 +189,8 @@ def on_install_click_wrapper(main):
     except Exception as err:
 
         update_output(main, f'[ERROR] {err}')
-        # Shows the install button again
-
+        
+    # Shows the install button again
     time.sleep(1.5)
     update_output(main, 'Action finished.')
     main.wait.place_forget()
