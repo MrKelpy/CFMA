@@ -144,26 +144,27 @@ def on_install_click_wrapper(main):
             blueprint_data = json.load(blueprint)
 
             for modname in blueprint_data:
-                
+
                 # Checks whether the mod is a custom or not
-                
+
                 if not modname.lower().startswith('custom_'):
-                    
+
                     update_output(main, f'Attempting "{modname}" installation')
-    
+
                     # Parses out the information for each mod and sends the request for the file download
                     modid = wrap(blueprint_data[modname], 4)
-    
+
                     modname, modid = format_correction(modname, modid)
 
                     data = requests.get(f"https://media.forgecdn.net/files/{modid[0]}/{modid[1]}/{modname}")
-                    
+
                 else:
-                    
+
                     # If custom, trusts the link and attempts to retrieve data from it
                     modlink = blueprint_data[modname]
                     modname = modname.split('custom_')[1]
-                    
+
+                    update_output(main, f'Attempting "{modname}" installation')
                     data = requests.get(modlink, allow_redirects=True)
 
                 modpath = os.path.join(mods, modname)
@@ -182,14 +183,14 @@ def on_install_click_wrapper(main):
                     installed_count += 1
 
         if installed_count == 0:
-            update_output(main, f'Error: Blueprint has no valid mods')
+            update_output(main, f'[Error]: Blueprint has no valid mods')
             update_output(main, f'To fill in mods inside the blueprint, edit the JSON file in the with the format CFModname:CFID')
             update_output(main, f'Check out the github page at https://github.com/mrkelpy/CFMA for a more detailed tutorial.')
 
     except Exception as err:
 
-        update_output(main, f'[ERROR] {err}')
-        
+        update_output(main, f'[ERROR]: {err}')
+
     # Shows the install button again
     time.sleep(1.5)
     update_output(main, 'Action finished.')
