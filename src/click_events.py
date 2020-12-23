@@ -144,17 +144,29 @@ def on_install_click_wrapper(main):
             blueprint_data = json.load(blueprint)
 
             for modname in blueprint_data:
+                
+                # Checks whether the mod is a custom or not
+                
+                if not modname.lower().startswith('custom_'):
+                    
+                    update_output(main, f'Attempting "{modname}" installation')
+    
+                    # Parses out the information for each mod and sends the request for the file download
+                    modid = wrap(blueprint_data[modname], 4)
+    
+                    modname, modid = format_correction(modname, modid)
 
-                update_output(main, f'Attempting "{modname}" installation')
+                    data = requests.get(f"https://media.forgecdn.net/files/{modid[0]}/{modid[1]}/{modname}")
+                    
+                else:
+                    
+                    # If custom, trusts the link and attempts to retrieve data from it
+                    modlink = blueprint_data[modname]
+                    modname = modname.split('custom_')[1]
+                    
+                    data = requests.get(modlink, allow_redirects=True)
 
-                # Parses out the information for each mod and sends the request for the file download
-                modid = wrap(blueprint_data[modname], 4)
-
-                modname, modid = format_correction(modname, modid)
-
-                data = requests.get(f"https://media.forgecdn.net/files/{modid[0]}/{modid[1]}/{modname}")
                 modpath = os.path.join(mods, modname)
-
                 # Checks if response is authorized
                 if data.status_code != 200:
 
